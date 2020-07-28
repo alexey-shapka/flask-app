@@ -1,0 +1,45 @@
+<html>
+
+   <head>
+      <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/listen.css') }}">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+      <script>
+      function GetLink(videoLink) {
+         axios.get('http://localhost:8080/api/runmusic', {
+            params: {
+               link: videoLink
+            }
+         })
+      }
+      </script>
+   </head>
+
+   <body>
+      <center>
+      <h1>Listen</h1><hr>
+      <div class = "search">
+         <form action = "/listen" method = "post" class = 'search-form'>
+            <input class = "search-field" type = "text" name = "videoArticle", placeholder="Enter request"/>
+            <input class = "search-button" type = "submit" value = "">
+         </form>
+      <div>
+      </center>
+
+      <div class = "request">
+        <center><table>
+            {% for Video in Videos %}  
+               <tr>
+                  <td>
+                     <button class="play-button-class" name = {{Video[2]}} onclick = "GetLink(name)">
+                  </td>
+                  <td>{{Video[0]}}</td> 
+                  <td>{{Video[1]}}</td>
+               </tr>
+            {% endfor %} 
+         </table></center>
+      </div>
+   </body>
+</html>

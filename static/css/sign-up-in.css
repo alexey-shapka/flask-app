@@ -1,0 +1,60 @@
+h1, p {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+    text-align: center;
+    font-family: "Verdana";
+    overflow: hidden;
+}
+
+h1:before, h1:after {
+    content: "";
+	display: inline-block;
+	vertical-align: middle;
+	box-sizing: border-box;
+	width: 100%;
+	height: 3px;
+	background: #6CBD83;
+	border: solid #FFF;
+    border-width: 0 15px;
+}
+
+h1:before {
+    margin-left:-100%
+}
+
+h1:after {
+    margin-right:-100%
+}
+
+form {
+    width: 25%;
+    margin: auto;
+}
+
+input {
+    margin-top: 15px !important;
+    margin-bottom: 15px !important;
+    width: 100%;
+    display: inline-block;
+}
+
+.submit-button {
+    padding: 5px 0px 5px 0px;
+    border: none;
+    background-color: #55af55;
+}
+
+.submit-button:hover {
+    background-color: #68d468;
+    color: rgb(34, 34, 34);
+}
+
+label {
+    font-size: 14px;
+    margin: 0 !important;
+}
+
+.error-label {
+    display: none;
+    color: #f00;
+}

@@ -1,0 +1,26 @@
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Login</title>
+      <link rel="icon" href="{{ url_for('static', filename='images/icon.svg') }}" >
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/sign-up-in.css') }}" >
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+   </head>
+   <body>
+      <div class="center container-fluid">
+         <h1>Login</h1><hr>
+         <form action="/register" method="post" class="registration-form">
+            <label class="error-label" for="login" id="login-label">Login should be at least 5 characters at long</label>
+            <input class="login" type="text" name="login" placeholder="Login"/>
+            <label class="error-label" for="password" id="password-label">Password should be at least 8 characters at long</label>
+            <input class="password" type="password" name="password" placeholder="Password"/>
+            <label class="error-label" for="confirm-password" id="post-status-error"></label>
+            <input class="submit-button" type="submit" value="Sign in"/>
+         </form>
+         <p>Do not have an account? Create an account! <a href="/register" title="Go to the login page">Sign up</a></p>
+      <div>
+   </body>
+</html>
