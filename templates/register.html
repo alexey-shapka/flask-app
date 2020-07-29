@@ -32,6 +32,10 @@
 
 <script type="text/javascript" src="{{ url_for('static', filename='js/register.js') }}"></script>
 <script>
+   if ( window.history.replaceState ) {
+      window.history.replaceState( null, null, window.location.href );
+   }
+   
    let error_message = '{{ error_message }}';
    if (error_message.length != 0) {
       $(".submit-button").attr("style", "margin-top: 2px !important;");

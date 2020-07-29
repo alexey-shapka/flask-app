@@ -1,0 +1,35 @@
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <title>Music service</title>
+      <link rel="icon" href="{{ url_for('static', filename='images/icon.svg') }}" >
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" >
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+   </head>
+
+   <body>
+      <div class="container header-container">
+         <div class="row header-picture">
+            <a href="/logout" class="logout">Log out</a>
+         </div>
+         <div class="row header-menu">
+            <div class="col-3 header-navigation" id="popular">Popular</div>
+            <div class="col-3 header-navigation" id="account-music">My music</div>
+            <div class="col-3 header-navigation" id="blog">Blog</div>
+            <div class="col-3 header-navigation" id="account-info">My account</div>
+         </div>
+      </div>
+      <div class="container body-container">
+         <div class="row body-menu"></div>
+      </div>
+   </body>
+</html>
+
+<script>
+   let page = '{{ page }}';
+</script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/main.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/popular.js') }}"></script>

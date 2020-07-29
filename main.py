@@ -81,12 +81,13 @@ def login():
 
     login = request.form.get('login')
     password = request.form.get('password')
+
     user = User.query.filter_by(login=login).first()
     if user and bcrypt.check_password_hash(user.password, password):
         flask_login.login_user(user)
-        return flask.redirect('/listen')
+        return flask.redirect('/services/popular')
 
-    return render_template('login.html', error_message="Incorrect input data.")
+    return render_template('login.html', error_message="Incorrect account data")
 
 
 @app.route('/register', methods=['GET', 'POST'])
@@ -102,7 +103,7 @@ def register():
     result = user.register()
     if result['status']:
         flask_login.login_user(user)
-        return flask.redirect('/listen')
+        return flask.redirect('/services/popular')
 
     return render_template('register.html', error_message=result['message'])
 
@@ -117,16 +118,22 @@ def logout():
 @app.route('/', methods=['GET'])
 @login_required
 def root():
-    return redirect('/listen')
+    return redirect('/services/popular')
 
 
-@app.route('/listen', methods=['GET'])
+@app.route('/services/<string:page>', methods=['GET'])
 @login_required
-def listen():
-    return render_template('listen.html')
+def services(page):
+    return render_template('main.html', page=page)
 
 
-# api.add_resource(SearchResource, '/api/search')
+@app.route('/templates/<string:template>', methods=['GET'])
+@login_required
+def templates(template):
+    return render_template(template)
+
+
+# api.add_resource("resource", "")
 
 if __name__ == '__main__':
     app.run(debug=True)

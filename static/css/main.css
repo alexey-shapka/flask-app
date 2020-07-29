@@ -1,0 +1,43 @@
+.header-picture {
+    min-height: 150px;
+    background-image: url('../images/header-background.png');
+    background-repeat: no-repeat;
+    margin-bottom: 15px;
+}
+
+.logout {
+    margin: 5px 20px auto auto;
+    color: #ffffff;
+    text-align: right;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+.logout:hover {
+    color: #ffffff;
+}
+
+.header-menu {
+    border-top: 5px solid #6CBD83;
+}
+
+.header-navigation {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-size: 1.2em;
+    color: #ffffff;
+    text-align: center;
+    background-color: #5cbd5c;
+    margin-top: 15px;
+    border: 2px solid #ffffff;
+}
+
+.header-navigation:hover {
+    color: #e3ffe1;
+    background-color: #68d468;
+    cursor: pointer;
+}
+
+.active-header {
+    border: 1px solid #338741 !important;
+}
