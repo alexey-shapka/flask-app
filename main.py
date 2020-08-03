@@ -9,6 +9,8 @@ from flask_login import login_required
 from flask_restful import Api
 
 from models import User
+from resources import YoutubePopularResource
+from services import YoutubeService
 from utils import setup_logging, Config, database
 
 
@@ -29,14 +31,16 @@ api = Api(app)
 app.config['SECRET_KEY'] = config['app']['secret_key']
 app.config['PATH'] = path
 
-with app.app_context():
-    app.configuration = config
+# init youtube service
+app.config['YOUTUBE_SERVICE'] = YoutubeService(config['services']['youtube']['token'])
 
 # configure database
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://{user}:{password}@{host}/{database}".format(
     **config['database']['sqlalchemy_database_uri'])
 app.config['SQLALCHEMY_POOL_SIZE'] = config['database']['pool_size']
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+app.app_context().push()
 
 # init database
 database.init_app(app)
@@ -85,7 +89,7 @@ def login():
     user = User.query.filter_by(login=login).first()
     if user and bcrypt.check_password_hash(user.password, password):
         flask_login.login_user(user)
-        return flask.redirect('/services/popular')
+        return flask.redirect('/category/popular')
 
     return render_template('login.html', error_message="Incorrect account data")
 
@@ -99,13 +103,13 @@ def register():
     password = request.form.get('password')
     email = request.form.get('email')
 
-    user = User(login, bcrypt.generate_password_hash(password), email)
-    result = user.register()
-    if result['status']:
-        flask_login.login_user(user)
-        return flask.redirect('/services/popular')
+    new_user = User(login=login, password=bcrypt.generate_password_hash(password), email=email)
+    register_status = new_user.register_new_user()
+    if register_status.get("success"):
+        flask_login.login_user(new_user)
+        return flask.redirect('/category/popular')
 
-    return render_template('register.html', error_message=result['message'])
+    return render_template('register.html', error_message=register_status.get("message"))
 
 
 @app.route('/logout')
@@ -118,12 +122,12 @@ def logout():
 @app.route('/', methods=['GET'])
 @login_required
 def root():
-    return redirect('/services/popular')
+    return redirect('/category/popular')
 
 
-@app.route('/services/<string:page>', methods=['GET'])
+@app.route('/category/<string:page>', methods=['GET'])
 @login_required
-def services(page):
+def category(page):
     return render_template('main.html', page=page)
 
 
@@ -133,7 +137,8 @@ def templates(template):
     return render_template(template)
 
 
-# api.add_resource("resource", "")
+api.add_resource(YoutubePopularResource, '/api/youtube/popular')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
